@@ -6,9 +6,9 @@ function Card({ user }) {
             <div className="card-body">
                 <img src={user.picture} alt={user.name} />
                 <h5 className="card-title">{user.name}</h5>
-                <p>{user.age}</p>
-                <p>{user.gender}</p>
-                <p>{user.balance}</p>
+                <p>Age: {user.age}</p>
+                <p>Gender: {user.gender}</p>
+                <p>Balance: {user.balance}</p>
             </div>
         </div>
     )

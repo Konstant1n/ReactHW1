@@ -1,5 +1,13 @@
+body {
+    padding-top: 25px;
+}
+
 .card {
     width: 18rem;
+}
+
+img {
+    margin-bottom: 15px;
 }
 
 .container {

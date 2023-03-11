@@ -8,17 +8,7 @@ function App() {
 
   const listofUsers = userData.map((item) => item);
   const [users, setUsers] = useState(listofUsers);
-  // console.log(listofUsers);
 
-
-  // function Card = () => {
-
-  // {users.map((user) => (
-  //   <UserCard user={user} key={user._id} handleShowModal={() => handleShowModal(user)}  
-  //   />
-  // }
-
-  // };
 
 
 
