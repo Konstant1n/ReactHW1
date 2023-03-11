@@ -6,6 +6,11 @@ body {
     width: 18rem;
 }
 
+.card:hover {
+    background-color: beige;
+    cursor: pointer;
+}
+
 img {
     margin-bottom: 15px;
 }
@@ -14,5 +19,13 @@ img {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+}
 
+.header {
+    display: flex;
+    width: 100%;
+}
+
+label {
+    padding-right: 10px;
 }
