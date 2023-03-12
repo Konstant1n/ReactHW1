@@ -1,14 +1,3 @@
-// 1 - Done
-// Создать SPA. И вывести карточки с информацией о юзерах. В информации должны быть поля: name, age, gender, balance,
-//  а так же фотка src которой должно быть равно полю picture. Юзеров берем в массиве userData который прикреплен 
-//  ниже (добавьте файл с данными себе в реакт проект). Каждая карточка должна быть отдельным компонентом.
-// 2
-// Создать header в котором будет input. Создать поиск юзеров по-имени. Cмотрим поле name.
-// 3
-// Создать сортировку по-возрасту (смотрим поле age). Сортировка должна работать 
-// с помощью тега select и находиться в хедере. 
-// Добавить возможность сбросить сортировку и поле input, после чего вывести юзеров в первоначальном состоянии.
-
 import React, { useState } from "react";
 import './App.css';
 import { userData } from './userData';
@@ -22,36 +11,74 @@ function App() {
   const listofUsers = userData.map((item) => item);
   const [users, setUsers] = useState(listofUsers);
 
-  // const [name, setName] = useState("");
+  const [filter, setFilter] = useState({
+    byName: "",
+    sortByAge: "default"
+  });
 
 
-  const usersFiltering = (name) => {
-    
-    // console.log(listofUsers.filter(user => user.name.toLowerCase().includes(name.toLowerCase())));
-    return listofUsers.filter(user => user.name.toLowerCase().includes(name.toLowerCase()))
+  // const usersFiltering = (name) => {
+  //   // console.log(listofUsers.filter(user => user.name.toLowerCase().includes(name.toLowerCase())));
+  //   return listofUsers.filter(user => user.name.toLowerCase().includes(name.toLowerCase()))
+  // };
+
+  const sortingUsers = (byName, sortByAge) => {
+    switch (sortByAge) {
+      case "ascending":
+        return listofUsers
+          .sort((a, b) => a.age - b.age)
+          .filter((user) =>
+            user.name.toLowerCase().includes(byName.toLowerCase())
+          );
+      case "descending":
+        return listofUsers
+          .sort((a, b) => b.age - a.age)
+          .filter((user) =>
+            user.name.toLowerCase().includes(byName.toLowerCase())
+          );
+      case "default":
+      default:
+        return listofUsers
+          .sort((a, b) => a.index - b.index)
+          .filter((user) =>
+            user.name.toLowerCase().includes(byName.toLowerCase())
+          );
+    }
   };
 
 
 
-  let handleInputChange = (event) => { 
-    setUsers(usersFiltering(event.target.value));
+  let handleInputNameChange = (event) => {
+    setFilter({ byName: event.target.value, sortByAge: filter.sortByAge })
+    setUsers(sortingUsers(event.target.value, filter.sortByAge));
+  };
+
+  let handleSelectSortChange = (event) => {
+    setFilter({ byName: filter.byName, sortByAge: event.target.value });
+    setUsers(sortingUsers(filter.byName, event.target.value));
+  };
+
+  let handleResetAllData = () => {
+    setFilter({byName: "", sortByAge: "default"});
+    setUsers(listofUsers);
+
   }
-
-
-
 
   return (
     <div className="App">
       <>
         <div className="container">
           <Header
-            handleInputChange={handleInputChange}
+            filter={filter}
+            handleInputNameChange={handleInputNameChange}
+            handleSelectSortChange={handleSelectSortChange}
+            handleResetAllData = {handleResetAllData}
           />
 
           {users.map((user) =>
-          (
-            <Card user={user} key={user._id} />
-          )
+            (
+              <Card user={user} key={user._id} />
+            )
           )}
 
         </div>

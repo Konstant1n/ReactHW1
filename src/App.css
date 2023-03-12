@@ -24,8 +24,21 @@ img {
 .header {
     display: flex;
     width: 100%;
+    align-items: flex-end;
 }
 
 label {
     padding-right: 10px;
+    margin-right: 20px;
+}
+
+.form-select {
+    width: 130px;
+    margin-left: 25px;
+    height: 39px;
+
+}
+
+.btn.btn-primary {
+    margin-left: 25px;
 }
