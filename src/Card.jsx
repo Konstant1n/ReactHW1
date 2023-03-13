@@ -1,8 +1,11 @@
 import React from "react";
 
-function Card({ user }) {
+function Card({ user, handleModalShow }) {
     return (
-        <div className="card">
+        <div 
+        className="card"
+        onClick={handleModalShow}
+        >
             <div className="card-body">
                 <img src={user.picture} alt={user.name} />
                 <h5 className="card-title">{user.name}</h5>

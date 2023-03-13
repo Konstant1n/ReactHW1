@@ -3,6 +3,7 @@ import './App.css';
 import { userData } from './userData';
 import Card from "./Card";
 import Header from "./Header";
+import Modal from "./Modal";
 
 
 
@@ -16,6 +17,8 @@ function App() {
     sortByAge: "default"
   });
 
+  const [isModalShow, setIsModalShow] = useState(false);
+  const [modalUserData, setModalUserData] = useState("null");
 
   // const usersFiltering = (name) => {
   //   // console.log(listofUsers.filter(user => user.name.toLowerCase().includes(name.toLowerCase())));
@@ -59,26 +62,43 @@ function App() {
   };
 
   let handleResetAllData = () => {
-    setFilter({byName: "", sortByAge: "default"});
+    setFilter({ byName: "", sortByAge: "default" });
     setUsers(listofUsers);
 
   }
 
+  let handleModalShow = (user) => {
+    setIsModalShow(true);
+    setModalUserData(user);
+    
+  }
+
+  let handleModaClose = (user) => {
+    setIsModalShow(false);
+    setModalUserData("null");
+  }
+
+
   return (
     <div className="App">
       <>
+        {isModalShow && <Modal user={modalUserData} handleModaClose = {handleModaClose} />}
+        
         <div className="container">
+          {/* {isModalShow && <Modal handleCloseModal={handleCloseModal} user={modalUserData}/>}   */}
+
           <Header
             filter={filter}
             handleInputNameChange={handleInputNameChange}
             handleSelectSortChange={handleSelectSortChange}
-            handleResetAllData = {handleResetAllData}
+            handleResetAllData={handleResetAllData}
+            
           />
 
           {users.map((user) =>
-            (
-              <Card user={user} key={user._id} />
-            )
+          (
+            <Card user={user} key={user._id} handleModalShow={() => handleModalShow(user)} />
+          )
           )}
 
         </div>
